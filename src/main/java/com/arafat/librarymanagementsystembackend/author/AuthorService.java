@@ -2,6 +2,9 @@ package com.arafat.librarymanagementsystembackend.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Service
 public class AuthorService {
@@ -10,6 +13,10 @@ public class AuthorService {
     @Autowired
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
+    }
+
+    public List<Author> getAuthors(){
+        return authorRepository.findAll();
     }
 
     public void addNewAuthor(Author author){

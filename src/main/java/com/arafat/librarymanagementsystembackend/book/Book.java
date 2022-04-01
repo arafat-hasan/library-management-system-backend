@@ -1,5 +1,7 @@
 package com.arafat.librarymanagementsystembackend.book;
 
+import com.arafat.librarymanagementsystembackend.publisher.Publisher;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -20,22 +22,27 @@ public class Book {
     private String name;
     private String author;
     private LocalDate publishDate;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "publisherId")
+    private Publisher publisher;
 
     public Book() {
 
     }
 
-    public Book(String name, String author, LocalDate publishDate) {
+    public Book(String name, String author, LocalDate publishDate, Publisher publisher) {
         this.name = name;
         this.author = author;
         this.publishDate = publishDate;
+        this.publisher = publisher;
     }
 
-    public Book(Long bookId, String name, String author, LocalDate publishDate) {
+    public Book(Long bookId, String name, String author, LocalDate publishDate, Publisher publisher) {
         this.bookId = bookId;
         this.name = name;
         this.author = author;
         this.publishDate = publishDate;
+        this.publisher = publisher;
     }
 
     public Long getBookId() {
@@ -66,6 +73,14 @@ public class Book {
         return publishDate;
     }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
     public void setPublishDate(LocalDate publishDate) {
         this.publishDate = publishDate;
     }
@@ -77,6 +92,7 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
                 ", publishDate=" + publishDate +
+                ", publisher=" + publisher +
                 '}';
     }
 }
